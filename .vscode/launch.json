@@ -1,0 +1,73 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "🤖 Debug Bot",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/bot.js",
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "envFile": "${workspaceFolder}/.env",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "restart": true,
+            "runtimeArgs": [
+                "--inspect"
+            ]
+        },
+        {
+            "name": "🛡️ Debug Admin Server",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/server.js",
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "envFile": "${workspaceFolder}/.env",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "restart": true,
+            "runtimeArgs": [
+                "--inspect"
+            ]
+        },
+        {
+            "name": "🔧 Debug Current File",
+            "type": "node",
+            "request": "launch",
+            "program": "${file}",
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "envFile": "${workspaceFolder}/.env",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        }
+    ],
+    "compounds": [
+        {
+            "name": "🚀 Debug Both (Bot + Admin)",
+            "configurations": [
+                "🤖 Debug Bot",
+                "🛡️ Debug Admin Server"
+            ],
+            "stopAll": true,
+            "presentation": {
+                "hidden": false,
+                "group": "debugging",
+                "order": 1
+            }
+        }
+    ]
+}

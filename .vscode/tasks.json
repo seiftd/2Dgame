@@ -1,0 +1,115 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "🤖 Start Bot",
+            "type": "shell",
+            "command": "npm",
+            "args": ["start"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "panel": "new",
+                "showReuseMessage": false
+            },
+            "problemMatcher": [],
+            "detail": "Start the Telegram bot"
+        },
+        {
+            "label": "🛡️ Start Admin Dashboard",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "server"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "panel": "new",
+                "showReuseMessage": false
+            },
+            "problemMatcher": [],
+            "detail": "Start the admin web dashboard"
+        },
+        {
+            "label": "🔧 Development Mode (Bot)",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "dev"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "panel": "new",
+                "showReuseMessage": false
+            },
+            "problemMatcher": [],
+            "detail": "Start bot in development mode with auto-restart"
+        },
+        {
+            "label": "🔧 Development Mode (Dashboard)",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "dev-server"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "panel": "new",
+                "showReuseMessage": false
+            },
+            "problemMatcher": [],
+            "detail": "Start dashboard in development mode with auto-restart"
+        },
+        {
+            "label": "📦 Install Dependencies",
+            "type": "shell",
+            "command": "npm",
+            "args": ["install"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "panel": "shared",
+                "showReuseMessage": false
+            },
+            "problemMatcher": [],
+            "detail": "Install npm dependencies"
+        },
+        {
+            "label": "🗄️ View Database",
+            "type": "shell",
+            "command": "sqlite3",
+            "args": ["database/game.db", ".tables"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": [],
+            "detail": "View database tables"
+        },
+        {
+            "label": "🏥 Health Check",
+            "type": "shell",
+            "command": "curl",
+            "args": ["http://localhost:3000/health"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": [],
+            "detail": "Check if admin server is running"
+        },
+        {
+            "label": "🚀 Full Startup",
+            "dependsOrder": "sequence",
+            "dependsOn": ["🤖 Start Bot", "🛡️ Start Admin Dashboard"],
+            "group": "build",
+            "detail": "Start both bot and admin dashboard"
+        }
+    ]
+}
