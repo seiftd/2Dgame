@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌾 Farmer Game - Sounds & Music</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2E7D32, #4CAF50, #81C784);
+            color: white;
+            text-align: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .sound-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .sound-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .sound-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .sound-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .sound-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .sound-description {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .controls {
+            margin: 30px 0;
+        }
+
+        .control-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            margin: 10px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .control-button:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .control-button:active {
+            transform: translateY(0);
+        }
+
+        .volume-control {
+            margin: 20px 0;
+        }
+
+        .volume-slider {
+            width: 200px;
+            margin: 0 10px;
+        }
+
+        .status {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .playing {
+            background: rgba(76, 175, 80, 0.3);
+            border: 2px solid #4CAF50;
+        }
+
+        .footer {
+            margin-top: 50px;
+            opacity: 0.7;
+            font-size: 0.9em;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .playing .sound-icon {
+            animation: pulse 1.5s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌾 Farmer Game Audio Center 🎵</h1>
+        
+        <div class="status" id="status">
+            🎵 Welcome to the Farmer Game Audio Center! Choose sounds and music for your farming experience.
+        </div>
+
+        <div class="controls">
+            <button class="control-button" onclick="toggleBackgroundMusic()">
+                🎵 Toggle Background Music
+            </button>
+            <button class="control-button" onclick="stopAllSounds()">
+                🔇 Stop All Sounds
+            </button>
+        </div>
+
+        <div class="volume-control">
+            🔊 Volume: 
+            <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50" onchange="setVolume(this.value)">
+            <span id="volumeValue">50%</span>
+        </div>
+
+        <h2>🎵 Background Music</h2>
+        <div class="sound-grid">
+            <div class="sound-card" onclick="playBackgroundMusic('peaceful')" id="peaceful-bg">
+                <div class="sound-icon">🎵</div>
+                <div class="sound-title">Peaceful Farm</div>
+                <div class="sound-description">Relaxing countryside ambience</div>
+            </div>
+            <div class="sound-card" onclick="playBackgroundMusic('upbeat')" id="upbeat-bg">
+                <div class="sound-icon">🎶</div>
+                <div class="sound-title">Happy Harvest</div>
+                <div class="sound-description">Upbeat farming melody</div>
+            </div>
+            <div class="sound-card" onclick="playBackgroundMusic('nature')" id="nature-bg">
+                <div class="sound-icon">🌿</div>
+                <div class="sound-title">Nature Sounds</div>
+                <div class="sound-description">Birds, wind, and rustling leaves</div>
+            </div>
+        </div>
+
+        <h2>🔊 Game Sound Effects</h2>
+        <div class="sound-grid">
+            <div class="sound-card" onclick="playSound('plant')">
+                <div class="sound-icon">🌱</div>
+                <div class="sound-title">Plant Seed</div>
+                <div class="sound-description">Digging and planting sound</div>
+            </div>
+            <div class="sound-card" onclick="playSound('water')">
+                <div class="sound-icon">💧</div>
+                <div class="sound-title">Water Crops</div>
+                <div class="sound-description">Watering can splash</div>
+            </div>
+            <div class="sound-card" onclick="playSound('harvest')">
+                <div class="sound-icon">🌾</div>
+                <div class="sound-title">Harvest</div>
+                <div class="sound-description">Satisfying crop collection</div>
+            </div>
+            <div class="sound-card" onclick="playSound('coin')">
+                <div class="sound-icon">🪙</div>
+                <div class="sound-title">Earn Coins</div>
+                <div class="sound-description">SBR coin collection</div>
+            </div>
+            <div class="sound-card" onclick="playSound('tractor')">
+                <div class="sound-icon">🚜</div>
+                <div class="sound-title">Tractor</div>
+                <div class="sound-description">Farm machinery working</div>
+            </div>
+            <div class="sound-card" onclick="playSound('level')">
+                <div class="sound-icon">⭐</div>
+                <div class="sound-title">Level Up</div>
+                <div class="sound-description">Achievement unlocked</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🎮 Integrate these sounds into your Telegram Farmer Game for an immersive experience!</p>
+            <p>💡 Tip: Use Web Audio API or HTML5 Audio in your web app integration</p>
+        </div>
+    </div>
+
+    <script>
+        let currentBackgroundMusic = null;
+        let globalVolume = 0.5;
+        let isBackgroundMusicPlaying = false;
+
+        // Audio context for better browser compatibility
+        let audioContext;
+        
+        function initAudioContext() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function updateStatus(message) {
+            document.getElementById('status').innerHTML = message;
+        }
+
+        function playSound(soundType) {
+            initAudioContext();
+            
+            // Simulate sound effect playing
+            const soundCard = event.target.closest('.sound-card');
+            soundCard.classList.add('playing');
+            
+            setTimeout(() => {
+                soundCard.classList.remove('playing');
+            }, 1000);
+
+            const soundMessages = {
+                plant: '🌱 Playing planting sound effect...',
+                water: '💧 Playing watering sound effect...',
+                harvest: '🌾 Playing harvest sound effect...',
+                coin: '🪙 Playing coin collection sound...',
+                tractor: '🚜 Playing tractor sound effect...',
+                level: '⭐ Playing level up celebration!'
+            };
+
+            updateStatus(soundMessages[soundType] || '🔊 Playing sound effect...');
+            
+            // In a real implementation, you would load and play actual audio files
+            console.log(`Playing ${soundType} sound effect`);
+        }
+
+        function playBackgroundMusic(musicType) {
+            initAudioContext();
+            
+            // Clear previous selections
+            document.querySelectorAll('.sound-card').forEach(card => {
+                card.classList.remove('playing');
+            });
+
+            // Mark current selection
+            document.getElementById(`${musicType}-bg`).classList.add('playing');
+            
+            const musicMessages = {
+                peaceful: '🎵 Playing peaceful farm music...',
+                upbeat: '🎶 Playing happy harvest melody...',
+                nature: '🌿 Playing nature sounds ambience...'
+            };
+
+            updateStatus(musicMessages[musicType] || '🎵 Playing background music...');
+            isBackgroundMusicPlaying = true;
+            currentBackgroundMusic = musicType;
+            
+            console.log(`Playing ${musicType} background music`);
+        }
+
+        function toggleBackgroundMusic() {
+            if (isBackgroundMusicPlaying) {
+                stopAllSounds();
+                updateStatus('🔇 Background music stopped');
+            } else if (currentBackgroundMusic) {
+                playBackgroundMusic(currentBackgroundMusic);
+            } else {
+                playBackgroundMusic('peaceful'); // Default
+            }
+        }
+
+        function stopAllSounds() {
+            document.querySelectorAll('.sound-card').forEach(card => {
+                card.classList.remove('playing');
+            });
+            
+            isBackgroundMusicPlaying = false;
+            updateStatus('🔇 All sounds stopped');
+            console.log('All audio stopped');
+        }
+
+        function setVolume(value) {
+            globalVolume = value / 100;
+            document.getElementById('volumeValue').textContent = value + '%';
+            updateStatus(`🔊 Volume set to ${value}%`);
+            console.log(`Volume set to ${value}%`);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStatus('🎵 Audio Center ready! Click on any sound to preview.');
+            
+            // Auto-start peaceful background music (commented out for user choice)
+            // setTimeout(() => playBackgroundMusic('peaceful'), 1000);
+        });
+
+        // Handle page visibility change to pause/resume audio
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden && isBackgroundMusicPlaying) {
+                console.log('Page hidden, audio continues...');
+            } else if (!document.hidden && isBackgroundMusicPlaying) {
+                console.log('Page visible, audio active...');
+            }
+        });
+    </script>
+</body>
+</html>
